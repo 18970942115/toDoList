@@ -5,46 +5,169 @@
     box-sizing: border-box;
 }
 
+/* CSS变量 - 默认温暖风格 */
+:root {
+    /* 温暖风格 */
+    --primary-color: #ff8c00;
+    --secondary-color: #ff6347;
+    --background-color: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    --card-background: white;
+    --text-color: #333;
+    --border-color: #ffebcd;
+    --accent-color: #ffe4b5;
+    --completed-color: #228b22;
+    --delete-color: #ff6347;
+    --shadow-color: rgba(255, 165, 0, 0.1);
+    --stat-color: #8b4513;
+    --empty-state-color: #8b4513;
+    --filter-bg: #fff8dc;
+    --filter-active-bg: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
+}
+
+/* 清新风格 */
+[data-theme="fresh"] {
+    --primary-color: #4682b4;
+    --secondary-color: #5f9ea0;
+    --background-color: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+    --card-background: white;
+    --text-color: #333;
+    --border-color: #b0e0e6;
+    --accent-color: #e0ffff;
+    --completed-color: #228b22;
+    --delete-color: #ff6347;
+    --shadow-color: rgba(70, 130, 180, 0.1);
+    --stat-color: #4682b4;
+    --empty-state-color: #4682b4;
+    --filter-bg: #e6f7ff;
+    --filter-active-bg: linear-gradient(135deg, #4682b4 0%, #5f9ea0 100%);
+}
+
+/* 简约风格 */
+[data-theme="simple"] {
+    --primary-color: #6a737d;
+    --secondary-color: #586069;
+    --background-color: linear-gradient(135deg, #f6f8fa 0%, #e1e4e8 100%);
+    --card-background: white;
+    --text-color: #24292e;
+    --border-color: #e1e4e8;
+    --accent-color: #f6f8fa;
+    --completed-color: #28a745;
+    --delete-color: #dc3545;
+    --shadow-color: rgba(106, 115, 125, 0.1);
+    --stat-color: #6a737d;
+    --empty-state-color: #6a737d;
+    --filter-bg: #f6f8fa;
+    --filter-active-bg: linear-gradient(135deg, #6a737d 0%, #586069 100%);
+}
+
+/* 深色风格 */
+[data-theme="dark"] {
+    --primary-color: #9370db;
+    --secondary-color: #7b68ee;
+    --background-color: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    --card-background: #34495e;
+    --text-color: #ecf0f1;
+    --border-color: #2c3e50;
+    --accent-color: #4a5f7a;
+    --completed-color: #27ae60;
+    --delete-color: #e74c3c;
+    --shadow-color: rgba(147, 112, 219, 0.1);
+    --stat-color: #bdc3c7;
+    --empty-state-color: #bdc3c7;
+    --filter-bg: #4a5f7a;
+    --filter-active-bg: linear-gradient(135deg, #9370db 0%, #7b68ee 100%);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    color: #333;
+    background: var(--background-color);
+    color: var(--text-color);
     line-height: 1.6;
     min-height: 100vh;
     padding: 20px;
+    transition: all 0.3s ease;
 }
 
 /* 容器样式 */
 .container {
     max-width: 800px;
     margin: 0 auto;
-    background: white;
+    background: var(--card-background);
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 165, 0, 0.1);
+    box-shadow: 0 10px 30px var(--shadow-color);
     padding: 30px;
     transition: all 0.3s ease;
 }
 
 /* 头部样式 */
 header {
-    text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #ffe4b5;
+    border-bottom: 2px solid var(--accent-color);
 }
 
-header h1 {
-    color: #ff8c00;
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-text {
+    text-align: left;
+}
+
+.header-text h1 {
+    color: var(--primary-color);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(255, 140, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .date {
-    color: #8b4513;
+    color: var(--stat-color);
     font-size: 1.1rem;
     font-weight: 500;
+}
+
+/* 主题切换器样式 */
+.theme-switcher {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.theme-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.theme-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+.theme-btn.active {
+    background: var(--filter-active-bg);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
 /* 输入区域样式 */
@@ -59,23 +182,24 @@ header h1 {
     flex: 1;
     min-width: 200px;
     padding: 15px 20px;
-    border: 2px solid #ffebcd;
+    border: 2px solid var(--border-color);
     border-radius: 25px;
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
-    background: #fffaf0;
+    background: var(--accent-color);
+    color: var(--text-color);
 }
 
 #todoInput:focus {
-    border-color: #ff8c00;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
 }
 
 #addTodoBtn {
     padding: 15px 25px;
-    background: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
+    background: var(--filter-active-bg);
     color: white;
     border: none;
     border-radius: 25px;
@@ -88,7 +212,7 @@ header h1 {
 
 #addTodoBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 #addTodoBtn:active {
@@ -101,7 +225,7 @@ header h1 {
     justify-content: space-around;
     margin-bottom: 25px;
     padding: 15px;
-    background: #fff8dc;
+    background: var(--accent-color);
     border-radius: 15px;
     flex-wrap: wrap;
     gap: 10px;
@@ -110,7 +234,7 @@ header h1 {
 .stat {
     font-size: 1rem;
     font-weight: 600;
-    color: #8b4513;
+    color: var(--stat-color);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -127,9 +251,9 @@ header h1 {
 
 .filter-btn {
     padding: 10px 20px;
-    background: #fff8dc;
-    color: #8b4513;
-    border: 2px solid #ffebcd;
+    background: var(--filter-bg);
+    color: var(--stat-color);
+    border: 2px solid var(--border-color);
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
@@ -138,15 +262,15 @@ header h1 {
 }
 
 .filter-btn:hover {
-    background: #ffe4b5;
+    background: var(--accent-color);
     transform: translateY(-2px);
 }
 
 .filter-btn.active {
-    background: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
+    background: var(--filter-active-bg);
     color: white;
-    border-color: #ff8c00;
-    box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
+    border-color: var(--primary-color);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* 待办事项列表样式 */
@@ -164,17 +288,17 @@ header h1 {
 }
 
 .todo-list::-webkit-scrollbar-track {
-    background: #fff8dc;
+    background: var(--accent-color);
     border-radius: 10px;
 }
 
 .todo-list::-webkit-scrollbar-thumb {
-    background: #ffb347;
+    background: var(--primary-color);
     border-radius: 10px;
 }
 
 .todo-list::-webkit-scrollbar-thumb:hover {
-    background: #ff8c00;
+    background: var(--secondary-color);
 }
 
 /* 单个待办事项样式 */
@@ -184,8 +308,8 @@ header h1 {
     justify-content: space-between;
     padding: 15px 20px;
     margin-bottom: 12px;
-    background: #fffaf0;
-    border: 2px solid #ffebcd;
+    background: var(--accent-color);
+    border: 2px solid var(--border-color);
     border-radius: 15px;
     transition: all 0.3s ease;
     animation: fadeIn 0.3s ease;
@@ -204,19 +328,19 @@ header h1 {
 
 .todo-item:hover {
     transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.15);
-    border-color: #ffdab9;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
 }
 
 .todo-item.completed {
-    background: #f0fff0;
-    border-color: #98fb98;
+    background: var(--accent-color);
+    border-color: var(--completed-color);
     opacity: 0.8;
 }
 
 .todo-item.completed .todo-text {
     text-decoration: line-through;
-    color: #228b22;
+    color: var(--completed-color);
 }
 
 /* 待办事项内容 */
@@ -232,13 +356,13 @@ header h1 {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #ff8c00;
+    accent-color: var(--primary-color);
     transform: scale(1.2);
 }
 
 .todo-text {
     font-size: 1rem;
-    color: #333;
+    color: var(--text-color);
     word-break: break-word;
     transition: all 0.3s ease;
 }
@@ -253,9 +377,9 @@ header h1 {
 
 .todo-actions button {
     padding: 12px 24px;
-    background: #fff8dc;
-    color: #8b4513;
-    border: 2px solid #ffebcd;
+    background: var(--filter-bg);
+    color: var(--stat-color);
+    border: 2px solid var(--border-color);
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
@@ -264,18 +388,24 @@ header h1 {
 }
 
 .todo-actions button:hover {
-    background: #ffebcd;
+    background: var(--accent-color);
     transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(255, 165, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .todo-actions button:active {
     transform: translateY(0);
 }
 
+/* 风格切换按钮样式 */
+.theme-toggle-btn {
+    background: var(--filter-active-bg) !important;
+    color: white !important;
+}
+
 /* 删除按钮样式 */
 .delete-btn {
-    background: #ff6347;
+    background: var(--delete-color);
     color: white;
     border: none;
     padding: 8px 12px;
@@ -291,16 +421,16 @@ header h1 {
 }
 
 .delete-btn:hover {
-    background: #dc143c;
+    background: var(--secondary-color);
     transform: scale(1.1);
-    box-shadow: 0 3px 10px rgba(220, 20, 60, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* 空状态样式 */
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #8b4513;
+    color: var(--empty-state-color);
 }
 
 .empty-state i {
@@ -312,6 +442,20 @@ header h1 {
 .empty-state p {
     font-size: 1.2rem;
     font-weight: 500;
+}
+
+/* 作者信息样式 */
+.author-info {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.author-info p {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
 }
 
 /* 响应式设计 */
@@ -409,12 +553,12 @@ header h1 {
 
 /* 悬停效果增强 */
 .todo-item:hover .todo-text {
-    color: #ff8c00;
+    color: var(--primary-color);
 }
 
 /* 焦点样式 */
 :focus {
-    outline: 2px solid #ff8c00;
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 

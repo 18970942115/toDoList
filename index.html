@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>温暖TODO List</title>
+    <title>toDoList</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>我的待办事项</h1>
-            <p class="date" id="currentDate"></p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>我的待办事项</h1>
+                    <p class="date" id="currentDate"></p>
+                </div>
+                <div class="theme-switcher" id="themeSwitcher">
+                    <button class="theme-btn active" data-theme="default" title="温暖风格">🌞</button>
+                    <button class="theme-btn" data-theme="fresh" title="清新风格">🌿</button>
+                    <button class="theme-btn" data-theme="simple" title="简约风格">📋</button>
+                    <button class="theme-btn" data-theme="dark" title="深色风格">🌙</button>
+                </div>
+            </div>
         </header>
         
         <div class="todo-input-section">
@@ -37,6 +47,10 @@
         <div class="todo-actions">
             <button id="clearCompletedBtn">清除已完成</button>
             <button id="clearAllBtn">清除全部</button>
+        </div>
+        
+        <div class="author-info">
+            <p>作者：大大鸣</p>
         </div>
     </div>
     

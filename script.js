@@ -8,15 +8,23 @@ const pendingTodos = document.getElementById('pendingTodos');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const clearCompletedBtn = document.getElementById('clearCompletedBtn');
 const clearAllBtn = document.getElementById('clearAllBtn');
+const themeSwitcher = document.getElementById('themeSwitcher');
+const themeBtns = document.querySelectorAll('.theme-btn');
 const currentDate = document.getElementById('currentDate');
 
 // 待办事项数组
 let todos = [];
 
+// 主题相关
+const themes = ['default', 'fresh', 'simple', 'dark'];
+let currentTheme = 'default';
+
 // 初始化应用
 function init() {
     // 显示当前日期
     showCurrentDate();
+    // 初始化主题
+    initTheme();
     // 从本地存储加载待办事项
     loadTodos();
     // 渲染待办事项
@@ -59,6 +67,65 @@ function addEventListeners() {
     clearCompletedBtn.addEventListener('click', clearCompleted);
     // 清除全部按钮点击事件
     clearAllBtn.addEventListener('click', clearAll);
+    // 主题切换按钮点击事件
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const theme = e.target.dataset.theme;
+            if (theme) {
+                switchTheme(theme);
+            }
+        });
+    });
+}
+
+// 初始化主题
+function initTheme() {
+    // 从本地存储加载主题
+    loadTheme();
+    // 应用主题
+    applyTheme();
+    // 更新主题按钮状态
+    updateThemeButtons();
+}
+
+// 从本地存储加载主题
+function loadTheme() {
+    const savedTheme = localStorage.getItem('todoTheme');
+    if (savedTheme && themes.includes(savedTheme)) {
+        currentTheme = savedTheme;
+    }
+}
+
+// 保存主题到本地存储
+function saveTheme() {
+    localStorage.setItem('todoTheme', currentTheme);
+}
+
+// 应用主题
+function applyTheme() {
+    if (currentTheme === 'default') {
+        document.documentElement.removeAttribute('data-theme');
+    } else {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+    }
+    saveTheme();
+}
+
+// 切换主题
+function switchTheme(theme) {
+    currentTheme = theme;
+    applyTheme();
+    updateThemeButtons();
+}
+
+// 更新主题按钮状态
+function updateThemeButtons() {
+    themeBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.theme === currentTheme) {
+            btn.classList.add('active');
+        }
+    });
 }
 
 // 添加待办事项
