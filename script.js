@@ -28,7 +28,7 @@ function init() {
     // 从本地存储加载待办事项
     loadTodos();
     // 同步review_tasks数据
-    syncReviewTasks();
+   // syncReviewTasks();
     // 渲染待办事项
     renderTodos();
     // 更新统计信息
@@ -335,7 +335,7 @@ function clearAll() {
 function saveTodos() {
     localStorage.setItem('todos', JSON.stringify(todos));
     // 同步更新review_tasks数据
-    updateReviewTasks();
+    //updateReviewTasks();
 }
 
 // 更新review_tasks数据
