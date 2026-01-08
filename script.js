@@ -27,53 +27,12 @@ function init() {
     initTheme();
     // 从本地存储加载待办事项
     loadTodos();
-    // 同步review_tasks数据
-   // syncReviewTasks();
     // 渲染待办事项
     renderTodos();
     // 更新统计信息
     updateStats();
     // 添加事件监听器
     addEventListeners();
-}
-
-// 同步review_tasks数据
-function syncReviewTasks() {
-    // 读取localStorage中的review_tasks数据
-    const reviewTasksJson = localStorage.getItem('review_tasks');
-    if (reviewTasksJson) {
-        try {
-            const reviewTasks = JSON.parse(reviewTasksJson);
-            if (Array.isArray(reviewTasks) && reviewTasks.length > 0) {
-                // 转换review_tasks数据为当前格式
-                const convertedTasks = reviewTasks.map(task => {
-                    // 创建待办事项文本，包含任务信息
-                    let taskText = task.name;
-                    if (task.type) taskText += ` [${task.type}]`;
-                    if (task.priority) taskText += ` (${task.priority})`;
-                    if (task.note) taskText += ` - ${task.note}`;
-                    
-                    return {
-                        id: task.id || Date.now() + Math.random(),
-                        text: taskText,
-                        completed: task.completed || false,
-                        createdAt: new Date().toISOString()
-                    };
-                });
-                
-                // 合并数据，避免重复
-                const existingIds = new Set(todos.map(todo => todo.id));
-                const newTasks = convertedTasks.filter(task => !existingIds.has(task.id));
-                
-                // 添加新任务
-                todos = [...todos, ...newTasks];
-                // 保存到本地存储
-                saveTodos();
-            }
-        } catch (error) {
-            console.error('同步review_tasks数据失败:', error);
-        }
-    }
 }
 
 // 显示当前日期
@@ -334,46 +293,9 @@ function clearAll() {
 // 保存待办事项到本地存储
 function saveTodos() {
     localStorage.setItem('todos', JSON.stringify(todos));
-    // 同步更新review_tasks数据
-    //updateReviewTasks();
 }
 
-// 更新review_tasks数据
-function updateReviewTasks() {
-    // 读取localStorage中的review_tasks数据
-    const reviewTasksJson = localStorage.getItem('review_tasks');
-    if (reviewTasksJson) {
-        try {
-            const reviewTasks = JSON.parse(reviewTasksJson);
-            if (Array.isArray(reviewTasks)) {
-                // 创建当前待办事项的映射，用于快速查找
-                const currentTodosMap = new Map();
-                todos.forEach(todo => {
-                    // 提取任务名称，用于匹配review_tasks
-                    const taskName = todo.text.split(' [')[0].split(' (')[0];
-                    currentTodosMap.set(taskName, todo);
-                });
-                
-                // 更新review_tasks的completed状态
-                const updatedReviewTasks = reviewTasks.map(task => {
-                    const matchingTodo = currentTodosMap.get(task.name);
-                    if (matchingTodo) {
-                        return {
-                            ...task,
-                            completed: matchingTodo.completed
-                        };
-                    }
-                    return task;
-                });
-                
-                // 保存更新后的review_tasks
-                localStorage.setItem('review_tasks', JSON.stringify(updatedReviewTasks));
-            }
-        } catch (error) {
-            console.error('更新review_tasks数据失败:', error);
-        }
-    }
-}
+
 
 // 从本地存储加载待办事项
 function loadTodos() {
